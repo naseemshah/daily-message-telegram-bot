@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Hapiens Bot Controller</title>
+    <meta name="description" content="Hapiens Bot Controller" />
+    <link
+      id="favicon"
+      rel="icon"
+      href="https://glitch.com/edit/favicon-app.ico"
+      type="image/x-icon"
+    />
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- import the webpage's stylesheet -->
+    <link rel="stylesheet" href="/style.css" />
+
+    <!-- import the webpage's client-side javascript file -->
+  </head>
+  <body>
+    <header>
+      <h1>
+        Hapiens FORUS Bot Frontend.
+      </h1>
+    </header>
+    <main>
+      <h3>Please enter the message to be sent:<br /><br /></h3>
+      <form action="sendmsg" method="GET">
+        <h5>Enter the message here:</h5>
+        <textarea name="msginput" ></textarea>
+        <h5>What time</h5>
+        <input type="time" name="usr_time" step="60" value="08:00" required>
+      
+        <input type="submit" value="Submit" />
+      </form>
+     
+    </main>
+
+    <footer>©<a href="http://www.hapiens.com/">Hapiens Digital</a></footer>
+
+    <div class="glitchButton" style="position:fixed;top:20px;right:20px;"></div>
+  </body>
+</html>
