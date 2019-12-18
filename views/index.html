@@ -28,10 +28,10 @@
       <h3>Please enter the message to be sent:<br /><br /></h3>
       <form action="sendmsg" method="GET">
         <h5>Enter the message here:</h5>
-        <textarea name="msginput" ></textarea>
-        <h5>What time</h5>
-        <input type="time" name="usr_time" step="60" value="08:00" required>
-      
+        <textarea name="msginput" required ></textarea>
+        <h5>What time?</h5>
+        <input type="time" name="usrtime" step="60" value="08:00" required>
+        <input type="file" name="imagefile">
         <input type="submit" value="Submit" />
       </form>
      
