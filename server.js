@@ -40,6 +40,10 @@ MongoClient.connect(url, function(err, db) {
   });
 });
 
+function insert(){
+  
+
+}
 
 //=========================
 
