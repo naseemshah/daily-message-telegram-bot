@@ -15,28 +15,132 @@
 
     <!-- import the webpage's stylesheet -->
     <link rel="stylesheet" href="/style.css" />
-
+    <!-- <link rel="stylesheet" href="../public/style.css" /> -->
     <!-- import the webpage's client-side javascript file -->
   </head>
   <body>
+    <script>
+    
+    function show(){
+      var form= document.getElementById("form");
+    var btn =  document.getElementById("addbtn");
+      form.classList.toggle("show");
+      form.classList.toggle("hide");
+      
+      if (btn.innerHTML==="<span>+ </span>Add") btn.innerHTML = "<span>X </span>Close";
+      else if (btn.innerHTML==="<span>X </span>Close") btn.innerHTML = "<span>+ </span>Add";
+    
+    }
+
+    var data;
+
+    async function getData(){
+      var response = await fetch('/show');
+      data = await response.json();
+      showData();
+    }
+
+    getData();
+    
+    
+    function dltone(id){
+      var tempdata;
+      const Http = new XMLHttpRequest();
+      const url='/dlt/'+id;
+      Http.open("GET", url);
+      Http.send();
+      Http.onreadystatechange = (e) => {
+      tempdata = JSON.parse(Http.responseText);
+      if(tempdata.ok=1){
+        location.reload();
+      }
+
+    }
+  }
+
+    function showData(){
+    var container = document.getElementById("list-section");
+      
+    data.forEach(function (element, ind) {
+    
+    var content = `
+        <div class="item">
+        <img src=${element.photo} alt="photo">
+        <h3>Message:</h3>
+        <p class="msg">${element.msg}</p>
+        
+        <div class="time-container">
+          <p>Time</p>
+          <p class="showtime">:  <span>${element.time.split(":").join("</span> : <span>")}</span> </p>
+        </div>
+        <div class="dlt-btn-container">
+          <div class="dlt" onclick=dltone("${element._id}")>
+            <img src="bin.svg" alt="">
+            <p>Delete</p>
+          </div>
+        </div>
+        </div>
+    
+    `;
+    container.innerHTML += content;
+    
+
+    });
+
+    
+    }
+
+    function dltall(){
+      var tempdata;
+      const Http = new XMLHttpRequest();
+      const url='/dltall';
+      Http.open("GET", url);
+      Http.send();
+      Http.onreadystatechange = (e) => {
+      tempdata = Http.responseText;
+      tempdata = JSON.parse(tempdata);
+      if(tempdata.ok=1){
+        location.reload();
+
+      }
+
+    }
+
+
+
+
+    }
+    
+    </script>
     <header>
       <h1>
         Hapiens FORUS Bot Frontend.
       </h1>
     </header>
     <main>
-      <h3>Please enter the message to be sent:<br /><br /></h3>
-      <form action="sendmsg" method="GET">
-        <h5>Enter the message here:</h5>
-        <textarea name="msginput" required ></textarea>
-        <h5>What time?</h5>
-        <input type="time" name="usrtime" step="60" value="08:00" required>
-        <input type="file" name="imagefile">
-        <input type="submit" value="Submit" />
-      </form>
-     
+      <button onclick="show()" id="addbtn" class="addbtn"><span>+ </span>Add</button>
+      <div id="form"  class="form-container hide">
+        <form action="/sndmsg" method="POST" enctype="multipart/form-data">
+          <h5>Enter the message here:</h5>
+          <textarea name="msginput" required ></textarea>
+          <h5>What time?</h5>
+          <input type="time" name="usrtime" step="60" value="08:00" required>
+          <input type="file" name="imgfile" required>
+          <input type="submit" value="Submit" />
+        </form>
+      
+      </div>
     </main>
+    <section style="float: right;">
+    <div class="dlt" onclick="dltall()">
+            <img src="bin.svg" alt="">
+            <p>Delete All</p>
+          </div>
+    </section>
+    <section class="list-section" id="list-section" >
+      
 
+    </section>
     <footer>©<a href="http://www.hapiens.com/">Hapiens Digital</a></footer>
 
     <div class="glitchButton" style="position:fixed;top:20px;right:20px;"></div>
